@@ -11,7 +11,7 @@ const TopNav = ({ title, chosenColor, ios }) => (
     className={cn(styles.headMenu, ios && styles.headMenuIos)}
     style={{ backgroundColor: chosenColor, color: libs.blackOrWhite(chosenColor) }}
   >
-    {title}
+    Starter Pro: {title}
   </div>
 );
 
@@ -22,7 +22,6 @@ TopNav.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  // eslint-disable-line
   title: deps.selectorCreators.getSetting('generalApp', 'title')(state),
   chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
   ios: isIos,

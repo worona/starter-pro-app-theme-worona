@@ -125,7 +125,7 @@ const mapDispatchToFormProps = dispatch =>
   });
 
 let StarterThemeForm = reduxForm({
-  form: 'StarterThemeForm',
+  form: 'StarterProThemeForm',
   fields: [ 'chosenColor', 'displayCategories', 'displayFeaturedImage' ],
   getFormState: state => state.theme.reduxForm,
   enableReinitialize: true,
@@ -136,7 +136,7 @@ export default () => {
   const RootContainer = deps.elements.RootContainer;
   return (
     <RootContainer mobilePreview>
-      <h1>Starter Theme settings</h1>
+      <h1>Starter Pro Theme settings</h1>
       <hr />
       <StarterThemeForm />
     </RootContainer>
