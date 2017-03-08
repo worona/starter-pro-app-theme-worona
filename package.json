@@ -1,22 +1,23 @@
 {
-  "name": "starter-app-theme-worona",
-  "version": "1.5.0",
-  "description": "Starter theme for worona apps.",
+  "name": "starter-pro-app-theme-worona",
+  "version": "1.0.0",
+  "description": "Starter PRO theme for worona apps.",
   "scripts": {
     "start": "node node_modules/worona-packages/dist/start.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/worona/starter-app-theme-worona.git"
+    "url": "git+https://github.com/worona/starter-pro-app-theme-worona.git"
   },
   "keywords": [
     "starter",
+    "pro",
     "theme",
     "app",
     "worona",
     "package"
   ],
-  "author": "abel@worona.org, luis@worona.org",
+  "author": "pablo@worona.org, luis@worona.org",
   "license": "MIT",
   "dependencies": {
     "bulma": "^0.3.0",
@@ -39,20 +40,20 @@
     "worona-packages": "1.3.12"
   },
   "bugs": {
-    "url": "https://github.com/worona/starter-app-theme-worona/issues"
+    "url": "https://github.com/worona/starter-pro-app-theme-worona/issues"
   },
-  "homepage": "https://github.com/worona/starter-app-theme-worona#readme",
+  "homepage": "https://github.com/worona/starter-pro-app-theme-worona#readme",
   "worona": {
     "authors": [
-      "abel@worona.org",
+      "pablo@worona.org",
       "luis@worona.org"
     ],
     "dashboard": {
       "type": "extension",
-      "namespace": "starterTheme",
+      "namespace": "starterProTheme",
       "menu": {
         "app": {
-          "niceName": "Starter Theme",
+          "niceName": "Starter PRO Theme",
           "category": "Themes",
           "order": 10
         }
@@ -61,8 +62,8 @@
     "app": {
       "type": "theme",
       "namespace": "theme",
-      "niceName": "Starter Theme",
-      "description": "This the basic theme which comes by default.",
+      "niceName": "Starter PRO Theme",
+      "description": "Starter theme with vitamins (pages & configurable menu)",
       "image": "",
       "listed": true
     }

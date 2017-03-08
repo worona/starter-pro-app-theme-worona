@@ -6,7 +6,7 @@ export function* saveDefaults(action) {
   yield put(
     deps.actions.saveSettingsRequested(
       { chosenColor: '#00AEEA', displayFeaturedImage: true, displayCategories: true },
-      { name: 'starter-app-theme-worona', siteId: action.siteId },
+      { name: 'starter-pro-app-theme-worona', siteId: action.siteId },
     ),
   );
 }
@@ -16,7 +16,7 @@ export default function* testSagas() {
     takeEvery(
       action =>
         action.type === deps.types.DEFAULT_SETTINGS_NEEDED &&
-          action.name === 'starter-app-theme-worona',
+          action.name === 'starter-pro-app-theme-worona',
       saveDefaults,
     ),
   ];

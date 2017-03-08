@@ -41,7 +41,7 @@ class StarterThemeFormClass extends React.Component {
     const submitThemeSettings = handleSubmit(
       (values, dispatch) =>
         dispatch(
-          deps.actions.saveSettingsRequested(values, { siteId, name: 'starter-app-theme-worona' }),
+          deps.actions.saveSettingsRequested(values, { siteId, name: 'starter-pro-app-theme-worona' }),
         ),
     );
     return (
@@ -111,7 +111,7 @@ const mapStateToFormProps = state => {
       displayCategories: themeSettings.displayCategories,
       displayFeaturedImage: themeSettings.displayFeaturedImage,
     },
-    waiting: deps.selectors.getSavingSettings(state) === 'starter-app-theme-worona',
+    waiting: deps.selectors.getSavingSettings(state) === 'starter-pro-app-theme-worona',
     siteId: deps.selectors.getSelectedSiteId(state),
     chosenColor: state.theme.reduxForm.StarterThemeForm &&
       state.theme.reduxForm.StarterThemeForm.values &&
