@@ -9,6 +9,16 @@ import styles from './style.css';
 import * as deps from '../../../deps';
 import * as libs from '../../../libs';
 
+<<<<<<< Updated upstream
+const TopNav = ({ title, chosenColor, ios }) => (
+  <div
+    className={cn(styles.headMenu, ios && styles.headMenuIos)}
+    style={{ backgroundColor: chosenColor, color: libs.blackOrWhite(chosenColor) }}
+  >
+    Starter Pro: {title}
+  </div>
+);
+=======
 const TopNav = ({ chosenColor, items, active, toggle, close }) => {
   let navigationMenu = null;
   if (items.length > 0) {
@@ -47,6 +57,7 @@ const TopNav = ({ chosenColor, items, active, toggle, close }) => {
     </div>
   );
 };
+>>>>>>> Stashed changes
 
 TopNav.propTypes = {
   chosenColor: React.PropTypes.string,
@@ -57,7 +68,6 @@ TopNav.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  // eslint-disable-line
   title: deps.selectorCreators.getSetting('generalApp', 'title')(state),
   chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
   items: [

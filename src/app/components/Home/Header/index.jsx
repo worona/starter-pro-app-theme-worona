@@ -4,10 +4,9 @@ import TopNav from './TopNav';
 import styles from './style.css';
 
 const Header = () => (
-  <div className={styles.menuWrapper}>
+  <section className="hero is-primary">
     <TopNav />
-    <ScrollMenu />
-  </div>
+  </section>
 );
 
 
