@@ -1,51 +1,54 @@
 import React from 'react';
+import Button from '../../elements/Button';
+import {SortableContainer, SortableElement, SortableHandle, arrayMove} from 'react-sortable-hoc';
 
-const Card = ({type}) => (
-  <div className="box">
-    <article className="media">
-      <div className="media-content">
-        <div className="columns">
-          <div className="column is-one-third">
-            <label className="label">Type</label>
-              <p className="control">
-                <span className="select">
-                  <select>
-                    <option>Category</option>
-                    <option>Page</option>
-                    <option>Other</option>
-                  </select>
-                </span>
-              </p>
-          </div>
-          <div className="column is-two-thirds">
-            <label className="label">Label</label>
-            <p className="control">
-              <input className="input" type="text" value="Category 1" />
-            </p>
-            <label className="label">Category</label>
-            <p className="control">
-              <p className="control">
-                <span className="select">
-                  <select>
-                    <option>Category 1</option>
-                    <option>Category 2</option>
-                    <option>Category 3</option>
-                  </select>
-                </span>
-              </p>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="media-right">
-        <button className="delete" />
-      </div>
-    </article>
-  </div>
+const DragHandle = SortableHandle(({ label }) =>
+  <p className="card-header-title">
+    <i className="fa fa-ellipsis-v" aria-hidden="true" style={{ color: '#b5b5b5', marginRight: '0.4em' }} />
+    {label}
+  </p>
 );
 
+const Card = SortableElement(({ label, url, isOpen = false }) => (
+  <div className="card">
+    <header className="card-header">
+      <DragHandle label={label} />
+      <a className="card-header-icon">
+        <span className="icon">
+          { isOpen ? <i className="fa fa-angle-up" /> : <i className="fa fa-angle-down" /> }
+        </span>
+      </a>
+    </header>
+    { isOpen ?
+      <div className="card-content">
+        <span>URL</span>
+        <p className="control">
+          <input className="input" type="text" value={url} />
+        </p>
+        <span>Label</span>
+        <p className="control">
+          <input className="input" type="text" value={label} />
+        </p>
+        <p>
+          <Button link color="danger" size="small" type="submit" style={{ color: 'red', paddingLeft: '0px' }}>
+            Delete
+          </Button>
+          |
+          <Button link color="danger" size="small" type="submit" >
+            Cancel
+          </Button>
+        </p>
+      </div>
+      :
+      null
+    }
+  </div>
+));
+
 Card.propTypes = {
-  type: React.PropTypes.string,
+  url: React.PropTypes.string,
+  label: React.PropTypes.string,
+  isOpen: React.PropTypes.bool,
 };
 
 export default Card;

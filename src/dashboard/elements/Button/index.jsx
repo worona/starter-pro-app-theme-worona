@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 const Button = ({
-  children, onClick, color, size, outlined, center, loading, disabled, animate, className, inverted,
+  children, onClick, color, size, outlined, link, center, loading, disabled, animate, className, inverted,
   type = 'button', style }) => {
   const buttonClass = cx(
     'button',
@@ -11,6 +11,7 @@ const Button = ({
     size && `is-${size}`,
     loading && 'is-loading',
     outlined && 'is-outlined',
+    link && 'is-link',
     inverted && 'is-inverted',
     disabled && 'is-disabled',
     animate && `animated ${animate}`
@@ -30,6 +31,7 @@ Button.propTypes = {
   color: React.PropTypes.string,
   size: React.PropTypes.string,
   outlined: React.PropTypes.bool,
+  link: React.PropTypes.bool,
   inverted: React.PropTypes.bool,
   center: React.PropTypes.bool,
   loading: React.PropTypes.bool,
