@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions, react/no-unused-prop-types */
 import React from 'react';
 import { flow } from 'lodash/fp';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, FieldArray } from 'redux-form';
 import { connect } from 'react-redux';
 import * as deps from '../../deps';
 import * as selectors from '../../selectors';
@@ -34,7 +34,7 @@ class StarterProThemeForm extends React.Component {
           label="Display featured image?"
           type="checkbox"
         />
-        <Field name="menu" component={Menu} label="Menu" />
+        <FieldArray name="menu" component={Menu} label="Menu" />
         <deps.elements.Button
           color="primary"
           size="large"
@@ -66,6 +66,7 @@ const mapStateToFormProps = state => {
     initialValues: {
       color: themeSettings.color,
       displayFeaturedImage: themeSettings.displayFeaturedImage,
+      menu: themeSettings.menu,
     },
     waiting: deps.selectors.getSavingSettings(state) === 'starter-pro-app-theme-worona',
     siteId: deps.selectors.getSelectedSiteId(state),

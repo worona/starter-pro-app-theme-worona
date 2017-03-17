@@ -1,49 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { SortableContainer as sortableContainer, arrayMove } from 'react-sortable-hoc';
+import { SortableContainer as sortableContainer } from 'react-sortable-hoc';
 import Card from './Card';
 import * as actions from '../../actions';
+import * as selectors from '../../selectors';
 import * as deps from '../../deps';
 
-const SortableList = sortableContainer(({ items }) => (
+const SortableList = sortableContainer(({ fields }) => (
   <span>
-    {items.map(({ url, label }, index) => (
+    {fields.map((member, index) => (
       <Card
         key={`item-${index}`}
-        url={url}
-        label={label}
+        member={member}
+        remove={() => fields.remove(index)}
         index={index}
-        style={{ marginBottom: '1em' }}
       />
     ))}
   </span>
 ));
 
 class SortableComponentClass extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      items: [
-        { label: 'Category 1', url: 'https://demo.worona.org/wp-cat/cities/architecture/' },
-        { label: 'Contact', url: 'https://demo.worona.org/contact' },
-        { label: 'Legal', url: 'https://demo.worona.org/legal' },
-        { label: 'Category 2', url: 'https://demo.worona.org/wp-cat/cities/architecture/' },
-      ],
-    };
+  constructor(props) {
+    super(props);
     this.onSortEnd = this.onSortEnd.bind(this);
   }
 
   onSortEnd({ oldIndex, newIndex }) {
     this.props.onSortEnd({ oldIndex, newIndex });
-    this.setState({
-      items: arrayMove(this.state.items, oldIndex, newIndex),
-    });
+    this.props.fields.move(oldIndex, newIndex);
   }
 
   render() {
     return (
       <SortableList
-        items={this.state.items}
+        fields={this.props.fields}
         onSortEnd={this.onSortEnd}
         onSortStart={this.props.onSortStart}
         useDragHandle
@@ -54,6 +44,9 @@ class SortableComponentClass extends React.Component {
 SortableComponentClass.propTypes = {
   onSortStart: React.PropTypes.func.isRequired,
   onSortEnd: React.PropTypes.func.isRequired,
+  fields: React.PropTypes.shape({
+    move: React.PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -65,20 +58,29 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-const SortableComponent = connect(null, mapDispatchToProps)(SortableComponentClass);
+const mapStateToProps = state => ({
+  items: selectors.getCurrentMenuItems(state),
+});
 
-const Menu = ({ label }) => (
+const SortableComponent = connect(mapStateToProps, mapDispatchToProps)(SortableComponentClass);
+
+const Menu = ({ label, fields }) => (
   <div>
     <span className="label">{label}</span>
-    <SortableComponent />
+    <SortableComponent fields={fields} />
     <br />
-    <deps.elements.Button outlined style={{ margin: '0 0.3em 1em 0' }}>
+    <deps.elements.Button
+      onClick={() => fields.push({ type: 'Link', label: 'Edit me', url: '', id: 1 })}
+      outlined
+      style={{ margin: '0 0.3em 1em 0' }}
+    >
       Add menu element
     </deps.elements.Button>
   </div>
 );
 Menu.propTypes = {
   label: React.PropTypes.string.isRequired,
+  fields: React.PropTypes.shape({}).isRequired,
 };
 
 export default Menu;

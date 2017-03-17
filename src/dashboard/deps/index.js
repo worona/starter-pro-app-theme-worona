@@ -4,6 +4,7 @@ export const elements = {
   get Button() { return dep('theme', 'elements', 'Button'); },
   get Icon() { return dep('theme', 'elements', 'Icon'); },
   get Switch() { return dep('theme', 'elements', 'Switch'); },
+  get Select() { return dep('theme', 'elements', 'Select'); },
   get RootContainer() { return dep('theme', 'elements', 'RootContainer'); },
 };
 

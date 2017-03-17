@@ -5,6 +5,7 @@ import {
   SortableElement as sortableElement,
   SortableHandle as sortableHandle,
 } from 'react-sortable-hoc';
+import { Field, formValueSelector } from 'redux-form';
 import * as deps from '../../deps';
 import * as selectors from '../../selectors';
 import * as actions from '../../actions';
@@ -20,7 +21,33 @@ const DragHandle = sortableHandle(({ label }) => (
   </p>
 ));
 
-const Card = sortableElement(({ label, url, isOpen = false, openMenuItem, closeMenuItem }) => (
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <span className="label">{label}</span>
+    <p className="control">
+      <input {...input} type={type} placeholder={label} className="input" />
+      {touched && error && <span className="is-danger">{error}</span>}
+    </p>
+  </div>
+);
+renderField.propTypes = {
+  input: React.PropTypes.shape({}).isRequired,
+  label: React.PropTypes.string.isRequired,
+  type: React.PropTypes.string.isRequired,
+  meta: React.PropTypes.shape({
+    touched: React.PropTypes.bool.isRequired,
+    error: React.PropTypes.string,
+  }).isRequired,
+};
+
+const Card = sortableElement(({
+  member,
+  isOpen = false,
+  openMenuItem,
+  closeMenuItem,
+  label,
+  remove,
+}) => (
   <div className="card">
     <header className="card-header">
       <div className="card-header-title">
@@ -34,27 +61,27 @@ const Card = sortableElement(({ label, url, isOpen = false, openMenuItem, closeM
     </header>
     {isOpen
       ? <div className="card-content">
-          <span>URL</span>
-          <p className="control">
-            <input className="input" type="text" value={url} />
-          </p>
-          <span>Label</span>
-          <p className="control">
-            <input className="input" type="text" value={label} />
-          </p>
+          <Field name={`${member}.label`} component={renderField} type="text" label="Label" />
+          <Field
+            name={`${member}.type`}
+            label="Type"
+            component={deps.elements.Select}
+            size="small"
+            options={['Category', 'Page', 'Link']}
+          />
+          <br />
           <p>
             <deps.elements.Button
-              link
+              onClick={remove}
               color="danger"
               size="small"
-              type="submit"
-              style={{ color: 'red', paddingLeft: '0px' }}
+              outlined
             >
               Delete
             </deps.elements.Button>
-            |
-            <deps.elements.Button link color="danger" size="small" type="submit">
-              Cancel
+            {' '}
+            <deps.elements.Button onClick={closeMenuItem} color="primary" size="small" outlined>
+              Close
             </deps.elements.Button>
           </p>
         </div>
@@ -63,20 +90,27 @@ const Card = sortableElement(({ label, url, isOpen = false, openMenuItem, closeM
 ));
 
 Card.propTypes = {
+  fields: React.PropTypes.shape({}).isRequired,
   index: React.PropTypes.number.isRequired,
-  url: React.PropTypes.string,
-  id: React.PropTypes.number,
   label: React.PropTypes.string.isRequired,
   isOpen: React.PropTypes.bool,
 };
 
-const mapStateToProps = (state, { index }) => ({
-  isOpen: selectors.getMenuItemOpen(state) === index,
-});
+const mapStateToProps = (state, { index, member }) => {
+  const reduxFormSelector = formValueSelector('StarterProThemeForm', st => st.theme.reduxForm);
+  return {
+    isOpen: selectors.getMenuItemOpen(state) === index,
+    label: reduxFormSelector(state, `${member}.label`),
+  };
+};
 
 const mapDispatchToProps = (dispatch, { index }) => ({
-  openMenuItem() { dispatch(actions.menuItemOpened({ index })) },
-  closeMenuItem() { dispatch(actions.menuItemClosed({ index })) },
-})
+  openMenuItem() {
+    dispatch(actions.menuItemOpened({ index }));
+  },
+  closeMenuItem() {
+    dispatch(actions.menuItemClosed({ index }));
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
