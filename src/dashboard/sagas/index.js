@@ -5,7 +5,7 @@ import * as deps from '../deps';
 export function* saveDefaults(action) {
   yield put(
     deps.actions.saveSettingsRequested(
-      { chosenColor: '#00AEEA', displayFeaturedImage: true, displayCategories: true },
+      { color: '#00AEEA', displayFeaturedImage: true, menu: [] },
       { name: 'starter-pro-app-theme-worona', siteId: action.siteId },
     ),
   );

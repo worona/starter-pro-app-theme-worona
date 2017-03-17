@@ -1,20 +1,16 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import * as deps from '../../deps';
-import StarterThemeForm from './StarterThemeForm';
-import Menu from './Menu';
+import Form from './Form';
 
 export default () => {
   const RootContainer = deps.elements.RootContainer;
   return (
     <RootContainer mobilePreview>
-      <h1>Starter Pro Theme</h1>
-      <h3>Appereance</h3>
+      <h1 className="title">Starter Pro Theme</h1>
+      <h2 className="subtitle">Configure your theme options here</h2>
       <hr />
-      <StarterThemeForm />
-      <h3>Menu</h3>
-      <hr />
-      <Menu />
+      <Form />
     </RootContainer>
   );
 }
