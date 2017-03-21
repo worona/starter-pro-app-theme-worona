@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import * as types from '../types';
+import * as deps from '../deps';
 
-const menuItemOpen = (state = false, { type, index, oldIndex, newIndex }) => {
+export const menuItemOpen = (state = false, { type, index, oldIndex, newIndex }) => {
   switch (type) {
     case types.MENU_ITEM_OPENED:
       return index;
@@ -18,7 +19,7 @@ const menuItemOpen = (state = false, { type, index, oldIndex, newIndex }) => {
   }
 }
 
-const currentMenuItems = (state = [], action) => {
+export const currentMenuItems = (state = [], action) => {
   switch (action.type) {
     case types.MENU_ITEM_ADDED:
       return [...state, { type: 'Link', label: 'Edit me', url: '', id: 1 }];
@@ -27,7 +28,27 @@ const currentMenuItems = (state = [], action) => {
   }
 };
 
+export const categoriesList = (state = [], action) => {
+  if (action.type === types.CATEGORIES_LIST_SUCCEED) {
+    return action.categories;
+  } else if (action.type === deps.types.SITE_UNSELECTED) {
+    return [];
+  }
+  return state;
+}
+
+export const pagesList = (state = [], action) => {
+  if (action.type === types.PAGES_LIST_SUCCEED) {
+    return action.pages;
+  } else if (action.type === deps.types.SITE_UNSELECTED) {
+    return [];
+  }
+  return state;
+}
+
 export default () => combineReducers({
   menuItemOpen,
   currentMenuItems,
+  categoriesList,
+  pagesList,
 });

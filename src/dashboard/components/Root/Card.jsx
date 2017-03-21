@@ -46,7 +46,10 @@ const Card = sortableElement(({
   openMenuItem,
   closeMenuItem,
   label,
+  type,
   remove,
+  categories,
+  pages,
 }) => (
   <div className="card">
     <header className="card-header">
@@ -67,8 +70,29 @@ const Card = sortableElement(({
             label="Type"
             component={deps.elements.Select}
             size="small"
-            options={['Category', 'Page', 'Link']}
+            options={['Latest posts', 'Category', 'Page', 'Link']}
           />
+        {type === 'Category' && (
+          <Field
+            name={`${member}.category`}
+            label="Category"
+            component={deps.elements.Select}
+            size="small"
+            options={categories.map(item => item.name)}
+          />
+        )}
+        {type === 'Page' && (
+          <Field
+            name={`${member}.page`}
+            label="Page"
+            component={deps.elements.Select}
+            size="small"
+            options={pages.map(item => item.title.rendered)}
+          />
+        )}
+        {type === 'Link' && (
+          <Field name={`${member}.url`} component={renderField} type="text" label="URL" />
+        )}
           <br />
           <p>
             <deps.elements.Button
@@ -90,10 +114,13 @@ const Card = sortableElement(({
 ));
 
 Card.propTypes = {
-  fields: React.PropTypes.shape({}).isRequired,
+  fields: React.PropTypes.shape({}),
   index: React.PropTypes.number.isRequired,
   label: React.PropTypes.string.isRequired,
+  type: React.PropTypes.string.isRequired,
   isOpen: React.PropTypes.bool,
+  categories: React.PropTypes.arrayOf(React.PropTypes.object),
+  pages: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
 const mapStateToProps = (state, { index, member }) => {
@@ -101,6 +128,9 @@ const mapStateToProps = (state, { index, member }) => {
   return {
     isOpen: selectors.getMenuItemOpen(state) === index,
     label: reduxFormSelector(state, `${member}.label`),
+    type: reduxFormSelector(state, `${member}.type`),
+    categories: selectors.getCategoriesList(state),
+    pages: selectors.getPagesList(state),
   };
 };
 

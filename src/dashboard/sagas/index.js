@@ -1,6 +1,7 @@
-import { takeEvery } from 'redux-saga';
+import { takeEvery, takeLatest } from 'redux-saga';
 import { put } from 'redux-saga/effects';
 import * as deps from '../deps';
+import wpDataSagas from './wp-data';
 
 export function* saveDefaults(action) {
   yield put(
@@ -19,5 +20,6 @@ export default function* testSagas() {
           action.name === 'starter-pro-app-theme-worona',
       saveDefaults,
     ),
+    takeLatest(deps.types.SITE_SELECTED, wpDataSagas),
   ];
 }

@@ -70,7 +70,7 @@ const Menu = ({ label, fields }) => (
     <SortableComponent fields={fields} />
     <br />
     <deps.elements.Button
-      onClick={() => fields.push({ type: 'Link', label: 'Edit me', url: '', id: 1 })}
+      onClick={() => fields.push({ type: 'Latest posts', label: 'Edit me' })}
       outlined
       style={{ margin: '0 0.3em 1em 0' }}
     >
