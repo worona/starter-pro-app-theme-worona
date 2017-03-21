@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as deps from '../../deps';
 import * as selectors from '../../selectors';
 import ColorPicker from './ColorPicker';
+import FrontPage from './FrontPage';
 import Menu from './Menu';
 
 class StarterProThemeForm extends React.Component {
@@ -34,6 +35,7 @@ class StarterProThemeForm extends React.Component {
           label="Display featured image?"
           type="checkbox"
         />
+        <FrontPage label="Front Page" />
         <FieldArray name="menu" component={Menu} label="Menu" />
         <deps.elements.Button
           color="primary"
@@ -67,6 +69,7 @@ const mapStateToFormProps = state => {
       color: themeSettings.color,
       displayFeaturedImage: themeSettings.displayFeaturedImage,
       menu: themeSettings.menu,
+      frontPage: themeSettings.frontPage,
     },
     waiting: deps.selectors.getSavingSettings(state) === 'starter-pro-app-theme-worona',
     siteId: deps.selectors.getSelectedSiteId(state),
