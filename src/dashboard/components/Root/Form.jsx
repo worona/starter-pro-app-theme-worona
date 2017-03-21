@@ -62,8 +62,10 @@ StarterProThemeForm.propTypes = {
   }),
 };
 
-const mapStateToFormProps = state => {
+const mapStateToProps = state => {
   const themeSettings = selectors.getThemeSettings(state);
+  // const categories = selectors.getCategoriesList(state);
+  // const pages = selectors.getPagesList(state);
   return {
     initialValues: {
       color: themeSettings.color,
@@ -86,5 +88,5 @@ export default flow(
     getFormState: state => state.theme.reduxForm,
     enableReinitialize: true,
   }),
-  connect(mapStateToFormProps),
+  connect(mapStateToProps),
 )(StarterProThemeForm);

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { connect } from 'react-redux';
+import { find } from 'lodash';
 import {
   SortableElement as sortableElement,
   SortableHandle as sortableHandle,
@@ -54,35 +55,37 @@ const Card = sortableElement(({
             size="small"
             options={['Latest posts', 'Category', 'Page', 'Link']}
           />
-        {type === 'Category' && (
-          <Field
-            name={`${member}.category`}
-            label="Category"
-            component={deps.elements.Select}
-            size="small"
-            options={categories.map(item => item.name)}
-          />
-        )}
-        {type === 'Page' && (
-          <Field
-            name={`${member}.page`}
-            label="Page"
-            component={deps.elements.Select}
-            size="small"
-            options={pages.map(item => item.title.rendered)}
-          />
-        )}
-        {type === 'Link' && (
-          <Field name={`${member}.url`} component={RenderField} type="text" label="URL" />
-        )}
+          {type === 'Category' &&
+            <Field
+              name={`${member}.category`}
+              label="Category"
+              component={deps.elements.Select}
+              size="small"
+              options={categories.map(item => item.name)}
+              parse={name => find(categories, category => category.name === name).id}
+              format={id => {
+                const category = find(categories, item => item.id === id);
+                return category ? category.name : '';
+              }}
+            />}
+          {type === 'Page' &&
+            <Field
+              name={`${member}.page`}
+              label="Page"
+              component={deps.elements.Select}
+              size="small"
+              options={pages.map(item => item.title.rendered)}
+              parse={title => find(pages, page => page.title.rendered === title).id}
+              format={id => {
+                const page = find(pages, item => item.id === id);
+                return page ? page.title.rendered : '';
+              }}
+            />}
+          {type === 'Link' &&
+            <Field name={`${member}.url`} component={RenderField} type="text" label="URL" />}
           <br />
           <p>
-            <deps.elements.Button
-              onClick={remove}
-              color="danger"
-              size="small"
-              outlined
-            >
+            <deps.elements.Button onClick={remove} color="danger" size="small" outlined>
               Delete
             </deps.elements.Button>
             {' '}

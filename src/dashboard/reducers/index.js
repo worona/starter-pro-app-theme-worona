@@ -19,15 +19,6 @@ export const menuItemOpen = (state = false, { type, index, oldIndex, newIndex })
   }
 }
 
-export const currentMenuItems = (state = [], action) => {
-  switch (action.type) {
-    case types.MENU_ITEM_ADDED:
-      return [...state, { type: 'Link', label: 'Edit me', url: '', id: 1 }];
-    default:
-      return state;
-  }
-};
-
 export const categoriesList = (state = [], action) => {
   if (action.type === types.CATEGORIES_LIST_SUCCEED) {
     return action.categories;
@@ -48,7 +39,6 @@ export const pagesList = (state = [], action) => {
 
 export default () => combineReducers({
   menuItemOpen,
-  currentMenuItems,
   categoriesList,
   pagesList,
 });
