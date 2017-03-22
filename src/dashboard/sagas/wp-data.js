@@ -1,12 +1,13 @@
-import { select, put, fork } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga';
+import { select, put } from 'redux-saga/effects';
 import Wpapi from 'wpapi';
 import * as actions from '../actions';
+import * as types from '../types';
 import * as deps from '../deps';
 
 export const getCategories = connection =>
   function* getCategoriesSaga() {
     try {
-      yield put(actions.categoriesListRequested());
       const categories = yield connection.categories().perPage(100);
       yield put(actions.categoriesListSucceed({ categories }));
     } catch (error) {
@@ -17,7 +18,6 @@ export const getCategories = connection =>
 export const getPages = connection =>
   function* getCategoriesSaga() {
     try {
-      yield put(actions.pagesListRequested());
       const pages = yield connection.pages().perPage(100);
       yield put(actions.pagesListSucceed({ pages }));
     } catch (error) {
@@ -28,5 +28,10 @@ export const getPages = connection =>
 export default function* wpDataSagas() {
   const { url } = yield select(deps.selectors.getSelectedSite);
   const connection = new Wpapi({ endpoint: `https://cors.worona.io/${url}?rest_route=` });
-  yield [fork(getCategories(connection)), fork(getPages(connection))];
+  yield [
+    takeEvery(types.CATEGORIES_LIST_REQUESTED, getCategories(connection)),
+    takeEvery(types.PAGES_LIST_REQUESTED, getPages(connection)),
+    put(actions.categoriesListRequested()),
+    put(actions.pagesListRequested()),
+  ];
 }

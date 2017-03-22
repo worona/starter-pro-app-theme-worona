@@ -37,8 +37,36 @@ export const pagesList = (state = [], action) => {
   return state;
 }
 
+export const categoriesStatus = (state = 'idle', action) => {
+  switch (action.type) {
+    case types.CATEGORIES_LIST_REQUESTED:
+      return 'fetching';
+    case types.CATEGORIES_LIST_SUCCEED:
+      return 'succeed';
+    case types.CATEGORIES_LIST_FAILED:
+      return 'error';
+    default:
+      return state;
+  }
+}
+
+export const pagesStatus = (state = 'idle', action) => {
+  switch (action.type) {
+    case types.PAGES_LIST_REQUESTED:
+      return 'fetching';
+    case types.PAGES_LIST_SUCCEED:
+      return 'succeed';
+    case types.PAGES_LIST_FAILED:
+      return 'error';
+    default:
+      return state;
+  }
+}
+
 export default () => combineReducers({
   menuItemOpen,
   categoriesList,
   pagesList,
+  categoriesStatus,
+  pagesStatus,
 });

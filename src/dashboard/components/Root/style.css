@@ -2,3 +2,7 @@
   opacity: 1 !important;
   margin-right:10px;
 }
+
+.removeButtonBackground:hover {
+  background-color: transparent !important;
+}

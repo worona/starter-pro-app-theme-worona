@@ -2,6 +2,7 @@
 import React from 'react';
 import * as deps from '../../deps';
 import Form from './Form';
+import FetchInfo from './FetchInfo';
 
 export default () => {
   const RootContainer = deps.elements.RootContainer;
@@ -10,6 +11,7 @@ export default () => {
       <h1 className="title">Starter Pro Theme</h1>
       <h2 className="subtitle">Configure your theme options here</h2>
       <hr />
+      <FetchInfo />
       <Form />
     </RootContainer>
   );

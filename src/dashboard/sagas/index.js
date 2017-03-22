@@ -33,7 +33,7 @@ export function* saveDefaults(action) {
   );
 }
 
-export default function* testSagas() {
+export default function* starterProThemeSagas() {
   yield [
     takeEvery(
       action =>
