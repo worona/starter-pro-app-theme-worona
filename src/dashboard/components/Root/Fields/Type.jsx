@@ -1,0 +1,30 @@
+import React from 'react';
+import { findKey } from 'lodash';
+import { Field } from 'redux-form';
+import * as deps from '../../../deps';
+
+const parsing = {
+  blog_home: 'Latest posts',
+  category: 'Category',
+  page: 'Page',
+  link: 'External Link',
+};
+
+const Type = ({ name, pages, options }) => (
+  <Field
+    name={name}
+    label="Type"
+    component={deps.elements.Select}
+    size="small"
+    options={options.filter(item => item !== 'Page' || pages.length > 0)}
+    parse={key => findKey(parsing, item => item === key)}
+    format={key => parsing[key]}
+  />
+);
+Type.propTypes = {
+  name: React.PropTypes.string.isRequired,
+  pages: React.PropTypes.shape({}).isRequired,
+  options: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+};
+
+export default Type;

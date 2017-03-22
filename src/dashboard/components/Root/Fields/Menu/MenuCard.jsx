@@ -1,16 +1,17 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { connect } from 'react-redux';
-import { find, findKey } from 'lodash';
 import {
   SortableElement as sortableElement,
   SortableHandle as sortableHandle,
 } from 'react-sortable-hoc';
 import { Field, formValueSelector } from 'redux-form';
-import * as deps from '../../deps';
-import * as selectors from '../../selectors';
-import * as actions from '../../actions';
-import RenderField from './RenderField';
+import * as deps from '../../../../deps';
+import * as selectors from '../../../../selectors';
+import * as actions from '../../../../actions';
+import RenderField from '../RenderField';
+import Type from '../Type';
+import { CategorySelector, PagesSelector } from '../Selectors';
 
 const DragHandle = sortableHandle(({ label }) => (
   <p style={{ cursor: 'move' }}>
@@ -23,14 +24,7 @@ const DragHandle = sortableHandle(({ label }) => (
   </p>
 ));
 
-const parsing = {
-  blog_home: 'Latest posts',
-  category: 'Category',
-  page: 'Page',
-  link: 'External Link',
-};
-
-const Card = sortableElement(({
+const MenuCard = sortableElement(({
   member,
   isOpen = false,
   openMenuItem,
@@ -55,43 +49,17 @@ const Card = sortableElement(({
     {isOpen
       ? <div className="card-content">
           <Field name={`${member}.label`} component={RenderField} type="text" label="Label" />
-          <Field
+          <Type
             name={`${member}.type`}
-            label="Type"
-            component={deps.elements.Select}
-            size="small"
-            options={['Latest posts', 'Category', 'Page', 'External Link'].filter(
-              item => item !== 'Page' || pages.length > 0,
-            )}
-            parse={name => findKey(parsing, item => item === name)}
-            format={name => parsing[name]}
+            options={['Latest posts', 'Category', 'Page', 'External Link']}
+            pages={pages}
           />
           {type === 'category' &&
-            <Field
-              name={`${member}.category`}
-              label="Category"
-              component={deps.elements.Select}
-              size="small"
-              options={categories.map(item => item.name)}
-              parse={name => find(categories, category => category.name === name).id}
-              format={id => {
-                const category = find(categories, item => item.id === id);
-                return category ? category.name : '';
-              }}
-            />}
+            <CategorySelector name={`${member}.category`} label="Category" categories={categories} />
+          }
           {type === 'page' &&
-            <Field
-              name={`${member}.page`}
-              label="Page"
-              component={deps.elements.Select}
-              size="small"
-              options={pages.map(item => item.title.rendered)}
-              parse={title => find(pages, page => page.title.rendered === title).id}
-              format={id => {
-                const page = find(pages, item => item.id === id);
-                return page ? page.title.rendered : '';
-              }}
-            />}
+            <PagesSelector name={`${member}.page`} label="Page" pages={pages} />
+          }
           {type === 'link' &&
             <Field name={`${member}.url`} component={RenderField} type="text" label="URL" />}
           <br />
@@ -109,7 +77,7 @@ const Card = sortableElement(({
   </div>
 ));
 
-Card.propTypes = {
+MenuCard.propTypes = {
   fields: React.PropTypes.shape({}),
   index: React.PropTypes.number.isRequired,
   label: React.PropTypes.string.isRequired,
@@ -136,4 +104,4 @@ const mapDispatchToProps = (dispatch, { index }) => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuCard);

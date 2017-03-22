@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { SortableContainer as sortableContainer } from 'react-sortable-hoc';
-import Card from './Card';
-import * as actions from '../../actions';
-import * as selectors from '../../selectors';
-import * as deps from '../../deps';
+import MenuCard from './MenuCard';
+import * as actions from '../../../../actions';
+import * as selectors from '../../../../selectors';
+import * as deps from '../../../../deps';
 
 const SortableList = sortableContainer(({ fields }) => (
   <span>
     {fields.map((member, index) => (
-      <Card
+      <MenuCard
         key={`item-${index}`}
         member={member}
         remove={() => fields.remove(index)}

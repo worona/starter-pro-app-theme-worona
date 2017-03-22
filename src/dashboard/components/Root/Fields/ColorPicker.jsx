@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { ChromePicker } from 'react-color';
-import * as deps from '../../deps';
-import styles from './style.css';
+import * as deps from '../../../deps';
+import styles from '../style.css';
 
 class ColorPicker extends React.Component {
   constructor(props) {

@@ -5,9 +5,9 @@ import { reduxForm, Field, FieldArray } from 'redux-form';
 import { connect } from 'react-redux';
 import * as deps from '../../deps';
 import * as selectors from '../../selectors';
-import ColorPicker from './ColorPicker';
-import FrontPage from './FrontPage';
-import Menu from './Menu';
+import ColorPicker from './Fields/ColorPicker';
+import FrontPage from './Fields/FrontPage';
+import Menu from './Fields/Menu';
 
 class StarterProThemeForm extends React.Component {
   constructor(props) {
