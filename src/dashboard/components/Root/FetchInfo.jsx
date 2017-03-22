@@ -13,10 +13,7 @@ const FetchInfo = ({ status, refresh }) => {
             Please wait, we are fetching your pages and categories.
           </div>
           <div className="level-right is-marginless">
-            <button
-              className={`button is-loading is-warning ${styles.removeButtonBackground}`}
-              onClick={refresh}
-            />
+            <button className="button is-loading is-warning" onClick={refresh} />
           </div>
         </div>
       </div>
@@ -29,11 +26,10 @@ const FetchInfo = ({ status, refresh }) => {
             Succeed! We have successfully fetched your pages and categories.
           </div>
           <div className="level-right is-marginless">
-            <button
-              className={`button is-light ${styles.removeButtonBackground}`}
-              onClick={refresh}
-            >
-              <span className="icon"><i className="fa fa-refresh" /></span>
+            <button className="button is-light" onClick={refresh}>
+              <span className={`icon ${styles.fetchInfoButtons}`}>
+                <i className="fa fa-refresh" />
+              </span>
             </button>
           </div>
         </div>
@@ -58,11 +54,10 @@ const FetchInfo = ({ status, refresh }) => {
             </span>
           </div>
           <div className="level-right is-marginless">
-            <button
-              className={`button is-danger ${styles.removeButtonBackground}`}
-              onClick={refresh}
-            >
-              <span className="icon"><i className="fa fa-refresh" /></span>
+            <button className="button is-danger" onClick={refresh}>
+              <span className={`icon ${styles.fetchInfoButtons}`}>
+                <i className="fa fa-refresh" />
+              </span>
             </button>
           </div>
         </div>

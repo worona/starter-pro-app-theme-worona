@@ -3,6 +3,6 @@
   margin-right:10px;
 }
 
-.removeButtonBackground:hover {
-  background-color: transparent !important;
+.fetchInfoButtons {
+  margin-left: 0px !important;
 }
