@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { connect } from 'react-redux';
-import { find } from 'lodash';
+import { find, findKey } from 'lodash';
 import {
   SortableElement as sortableElement,
   SortableHandle as sortableHandle,
@@ -22,6 +22,13 @@ const DragHandle = sortableHandle(({ label }) => (
     {label}
   </p>
 ));
+
+const parsing = {
+  blog_home: 'Latest posts',
+  category: 'Category',
+  page: 'Page',
+  link: 'External Link',
+};
 
 const Card = sortableElement(({
   member,
@@ -53,11 +60,13 @@ const Card = sortableElement(({
             label="Type"
             component={deps.elements.Select}
             size="small"
-            options={['Latest posts', 'Category', 'Page', 'Link'].filter(
+            options={['Latest posts', 'Category', 'Page', 'External Link'].filter(
               item => item !== 'Page' || pages.length > 0,
             )}
+            parse={name => findKey(parsing, item => item === name)}
+            format={name => parsing[name]}
           />
-          {type === 'Category' &&
+          {type === 'category' &&
             <Field
               name={`${member}.category`}
               label="Category"
@@ -70,7 +79,7 @@ const Card = sortableElement(({
                 return category ? category.name : '';
               }}
             />}
-          {type === 'Page' &&
+          {type === 'page' &&
             <Field
               name={`${member}.page`}
               label="Page"
@@ -83,7 +92,7 @@ const Card = sortableElement(({
                 return page ? page.title.rendered : '';
               }}
             />}
-          {type === 'Link' &&
+          {type === 'link' &&
             <Field name={`${member}.url`} component={RenderField} type="text" label="URL" />}
           <br />
           <p>

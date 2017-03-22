@@ -16,14 +16,14 @@ export function* saveDefaults(action) {
         displayFeaturedImage: true,
         menu: [
           {
-            type: 'Latest posts',
+            type: 'blog_home',
             label: 'Home',
             category: categories[0] && categories[0].id || 0,
             page: pages[0] && pages[0].id || 0,
           },
         ],
         frontPage: {
-          type: 'Latest posts',
+          type: 'blog_home',
           category: categories[0] && categories[0].id || 0,
           page: pages[0] && pages[0].id || 0,
         },

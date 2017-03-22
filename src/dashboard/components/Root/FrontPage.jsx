@@ -1,9 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { find } from 'lodash';
+import { find, findKey } from 'lodash';
 import { Field, formValueSelector } from 'redux-form';
 import * as selectors from '../../selectors';
 import * as deps from '../../deps';
+
+const parsing = {
+  blog_home: 'Latest posts',
+  category: 'Category',
+  page: 'Page',
+};
 
 const FrontPage = ({ label, type, categories, pages }) => (
   <div>
@@ -16,8 +22,10 @@ const FrontPage = ({ label, type, categories, pages }) => (
       options={['Latest posts', 'Category', 'Page'].filter(
         item => item !== 'Page' || pages.length > 0,
       )}
+      parse={name => findKey(parsing, item => item === name)}
+      format={name => parsing[name]}
     />
-    {type === 'Category' &&
+    {type === 'category' &&
       <Field
         name="frontPage.category"
         label="Category"
@@ -31,7 +39,7 @@ const FrontPage = ({ label, type, categories, pages }) => (
         }}
       />
     }
-    {type === 'Page' &&
+    {type === 'page' &&
       <Field
         name="frontPage.page"
         label="Page"
