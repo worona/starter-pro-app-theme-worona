@@ -53,7 +53,9 @@ const Card = sortableElement(({
             label="Type"
             component={deps.elements.Select}
             size="small"
-            options={['Latest posts', 'Category', 'Page', 'Link']}
+            options={['Latest posts', 'Category', 'Page', 'Link'].filter(
+              item => item !== 'Page' || pages.length > 0,
+            )}
           />
           {type === 'Category' &&
             <Field

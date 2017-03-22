@@ -13,9 +13,11 @@ const FrontPage = ({ label, type, categories, pages }) => (
       label="Type"
       component={deps.elements.Select}
       size="small"
-      options={['Latest posts', 'Category', 'Page']}
+      options={['Latest posts', 'Category', 'Page'].filter(
+        item => item !== 'Page' || pages.length > 0,
+      )}
     />
-    {type === 'Category' && (
+    {type === 'Category' &&
       <Field
         name="frontPage.category"
         label="Category"
@@ -28,8 +30,8 @@ const FrontPage = ({ label, type, categories, pages }) => (
           return category ? category.name : '';
         }}
       />
-    )}
-    {type === 'Page' && (
+    }
+    {type === 'Page' &&
       <Field
         name="frontPage.page"
         label="Page"
@@ -42,7 +44,7 @@ const FrontPage = ({ label, type, categories, pages }) => (
           return page ? page.title.rendered : '';
         }}
       />
-    )}
+    }
   </div>
 );
 FrontPage.propTypes = {
