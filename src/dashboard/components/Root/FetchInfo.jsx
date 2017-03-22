@@ -10,7 +10,7 @@ const FetchInfo = ({ status, refresh }) => {
       <div className="notification is-warning">
         <div className="level is-mobile">
           <div className="level-left">
-            Please wait, we are fetching your pages and categories.
+            Please wait, we are synchronizing your pages and categories.
           </div>
           <div className="level-right is-marginless">
             <button className="button is-loading is-warning" onClick={refresh} />
@@ -23,7 +23,7 @@ const FetchInfo = ({ status, refresh }) => {
       <div className="notification">
         <div className="level is-mobile">
           <div className="level-left">
-            Succeed! We have successfully fetched your pages and categories.
+            Succeed! We have successfully synchronized your pages and categories.
           </div>
           <div className="level-right is-marginless">
             <button className="button is-light" onClick={refresh}>
@@ -41,8 +41,8 @@ const FetchInfo = ({ status, refresh }) => {
         <div className="level">
           <div className="level-left">
             <span>
-              Something went wrong while fetching your pages and categories. Please contact with
-              {' '}
+              Something went wrong while synchronizing your pages and categories.
+              Please contact with {' '}
               <a
                 href="https://www.worona.org/get-help"
                 target="_blank"
