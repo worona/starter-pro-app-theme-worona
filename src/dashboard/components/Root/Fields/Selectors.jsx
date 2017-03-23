@@ -9,7 +9,7 @@ export const CategorySelector = ({ name, label, categories }) => (
     label={label}
     component={deps.elements.Select}
     size="small"
-    options={categories}
+    options={categories.map(item => item.name)}
     parse={key => find(categories, category => category.name === key).id}
     format={id => {
       const category = find(categories, item => item.id === id);
@@ -20,7 +20,7 @@ export const CategorySelector = ({ name, label, categories }) => (
 CategorySelector.propTypes = {
   name: React.PropTypes.string.isRequired,
   label: React.PropTypes.string.isRequired,
-  categories: React.PropTypes.shape({}).isRequired,
+  categories: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
 };
 
 export const PagesSelector = ({ name, label, pages }) => (
@@ -40,5 +40,5 @@ export const PagesSelector = ({ name, label, pages }) => (
 PagesSelector.propTypes = {
   name: React.PropTypes.string.isRequired,
   label: React.PropTypes.string.isRequired,
-  pages: React.PropTypes.shape({}).isRequired,
+  pages: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
 };
