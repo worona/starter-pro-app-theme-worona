@@ -27,8 +27,8 @@ FrontPage.propTypes = {
 const reduxFormSelector = formValueSelector('StarterProThemeForm', st => st.theme.reduxForm);
 const mapStateToProps = state => ({
   type: reduxFormSelector(state, 'frontPage.type'),
-  categories: selectors.getCategoriesList(state),
-  pages: selectors.getPagesList(state),
+  categories: selectors.getSelectedCategoriesList(state),
+  pages: selectors.getSelectedPagesList(state),
 });
 
 export default connect(mapStateToProps)(FrontPage);

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import * as selectors from '../../selectors';
+import * as deps from '../../deps';
 import styles from './style.css';
 
 const Notification = ({ children, color, icon, refresh, loading }) => (
@@ -68,14 +69,15 @@ FetchInfo.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  status: selectors.getStatus(state),
-});
+  status: selectors.getSelectedStatus(state),
+  siteId: deps.selectors.getSelectedSiteId(state),
+})
 
-const mapDispatchToProps = dispatch => ({
+const mergeProps = ({ siteId }, dispatch) => ({
   refresh() {
-    dispatch(actions.categoriesListRequested());
-    dispatch(actions.pagesListRequested());
+    dispatch(actions.categoriesListRequested({ siteId }));
+    dispatch(actions.pagesListRequested({ siteId }));
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FetchInfo);
+export default connect(mapStateToProps, dispatch => dispatch, mergeProps)(FetchInfo);

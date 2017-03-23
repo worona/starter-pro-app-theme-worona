@@ -92,8 +92,8 @@ const mapStateToProps = (state, { index, member }) => ({
   isOpen: selectors.getMenuItemOpen(state) === index,
   label: reduxFormSelector(state, `${member}.label`),
   type: reduxFormSelector(state, `${member}.type`),
-  categories: selectors.getCategoriesList(state),
-  pages: selectors.getPagesList(state),
+  categories: selectors.getSelectedCategoriesList(state),
+  pages: selectors.getSelectedPagesList(state),
 });
 const mapDispatchToProps = (dispatch, { index }) => ({
   openMenuItem() {
