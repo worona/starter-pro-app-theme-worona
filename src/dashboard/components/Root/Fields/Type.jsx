@@ -23,7 +23,7 @@ const Type = ({ name, pages, options }) => (
 );
 Type.propTypes = {
   name: React.PropTypes.string.isRequired,
-  pages: React.PropTypes.shape({}).isRequired,
+  pages: React.PropTypes.arrayfOf(React.PropTypes.object).isRequired,
   options: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
 };
 
