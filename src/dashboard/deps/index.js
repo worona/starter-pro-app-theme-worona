@@ -21,11 +21,9 @@ export const selectors = {
 export const selectorCreators = {
   get getSettings() { return dep('settings', 'selectorCreators', 'getSettings'); },
   get getSetting() { return dep('settings', 'selectorCreators', 'getSetting'); },
-  get getSite() { return dep('sites', 'selectorCreators', 'getSite'); },
 };
 
 export const types = {
   get DEFAULT_SETTINGS_NEEDED() { return dep('settings', 'types', 'DEFAULT_SETTINGS_NEEDED'); },
   get SITE_SELECTED() { return dep('router', 'types', 'SITE_SELECTED'); },
-  get SITE_UNSELECTED() { return dep('router', 'types', 'SITE_UNSELECTED'); },
 };

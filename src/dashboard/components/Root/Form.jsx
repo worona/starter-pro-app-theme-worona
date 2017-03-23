@@ -64,6 +64,8 @@ StarterProThemeForm.propTypes = {
 
 const mapStateToProps = state => {
   const themeSettings = selectors.getThemeSettings(state);
+  // const categories = selectors.getCategoriesList(state);
+  // const pages = selectors.getPagesList(state);
   return {
     initialValues: {
       color: themeSettings.color,

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { SortableContainer as sortableContainer } from 'react-sortable-hoc';
 import MenuCard from './MenuCard';
 import * as actions from '../../../../actions';
+import * as selectors from '../../../../selectors';
 import * as deps from '../../../../deps';
 
 const SortableList = sortableContainer(({ fields }) => (
@@ -57,7 +58,11 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-const SortableComponent = connect(null, mapDispatchToProps)(SortableComponentClass);
+const mapStateToProps = state => ({
+  items: selectors.getCurrentMenuItems(state),
+});
+
+const SortableComponent = connect(mapStateToProps, mapDispatchToProps)(SortableComponentClass);
 
 const Menu = ({ label, fields }) => (
   <div>

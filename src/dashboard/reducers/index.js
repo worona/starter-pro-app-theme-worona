@@ -8,8 +8,6 @@ export const menuItemOpen = (state = false, { type, index, oldIndex, newIndex })
       return index;
     case types.MENU_ITEM_CLOSED:
     case 'redux-form/ARRAY_REMOVE':
-    case deps.types.SITE_UNSELECTED:
-    case deps.types.SITE_SELECTED:
       return false;
     case types.MENU_ITEM_SORT_ENDED:
       if (oldIndex === state) return newIndex;
@@ -21,41 +19,45 @@ export const menuItemOpen = (state = false, { type, index, oldIndex, newIndex })
   }
 }
 
-export const categoriesList = (state = {}, action) => {
+export const categoriesList = (state = [], action) => {
   if (action.type === types.CATEGORIES_LIST_SUCCEED) {
-    return { ...state, [action.siteId]: action.categories };
+    return action.categories;
+  } else if (action.type === deps.types.SITE_UNSELECTED) {
+    return [];
   }
   return state;
 }
 
-export const pagesList = (state = {}, action) => {
+export const pagesList = (state = [], action) => {
   if (action.type === types.PAGES_LIST_SUCCEED) {
-    return { ...state, [action.siteId]: action.pages };
+    return action.pages;
+  } else if (action.type === deps.types.SITE_UNSELECTED) {
+    return [];
   }
   return state;
 }
 
-export const categoriesStatus = (state = {}, { type, siteId }) => {
-  switch (type) {
+export const categoriesStatus = (state = 'idle', action) => {
+  switch (action.type) {
     case types.CATEGORIES_LIST_REQUESTED:
-      return { ...state, [siteId]: 'fetching' };
+      return 'fetching';
     case types.CATEGORIES_LIST_SUCCEED:
-      return { ...state, [siteId]: 'succeed' };
+      return 'succeed';
     case types.CATEGORIES_LIST_FAILED:
-      return { ...state, [siteId]: 'error' };
+      return 'error';
     default:
       return state;
   }
 }
 
-export const pagesStatus = (state = {}, { type, siteId }) => {
-  switch (type) {
+export const pagesStatus = (state = 'idle', action) => {
+  switch (action.type) {
     case types.PAGES_LIST_REQUESTED:
-      return { ...state, [siteId]: 'fetching' };
+      return 'fetching';
     case types.PAGES_LIST_SUCCEED:
-      return { ...state, [siteId]: 'succeed' };
+      return 'succeed';
     case types.PAGES_LIST_FAILED:
-      return { ...state, [siteId]: 'error' };
+      return 'error';
     default:
       return state;
   }
