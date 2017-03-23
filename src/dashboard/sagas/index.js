@@ -1,5 +1,5 @@
 import { takeEvery, takeLatest } from 'redux-saga';
-import { put, take, select } from 'redux-saga/effects';
+import { put, take, select, fork } from 'redux-saga/effects';
 import * as deps from '../deps';
 import * as types from '../types';
 import * as selectors from '../selectors';
@@ -34,6 +34,8 @@ export function* saveDefaults(action) {
 }
 
 export default function* starterProThemeSagas() {
+  const siteId = yield select(deps.selectors.getSelectedSiteId);
+  if (siteId) yield fork(wpDataSagas);
   yield [
     takeEvery(
       action =>
