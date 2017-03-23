@@ -40,7 +40,7 @@ const FetchInfo = ({ status, refresh }) => {
   else if (status === 'succeed')
     return (
       <Notification color="is-light" refresh={refresh} icon>
-        Succeed! We have successfully synchronized your pages and categories.
+        Pages and categories synchronized successfully.
       </Notification>
     );
   else if (status === 'error')

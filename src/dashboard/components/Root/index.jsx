@@ -11,8 +11,9 @@ export default () => {
       <h1 className="title">Starter Pro Theme</h1>
       <h2 className="subtitle">Configure your theme options here</h2>
       <hr />
-      <FetchInfo />
       <Form />
+      <hr />
+      <FetchInfo />
     </RootContainer>
   );
 }
