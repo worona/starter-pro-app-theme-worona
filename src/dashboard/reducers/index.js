@@ -8,6 +8,7 @@ export const menuItemOpen = (state = false, { type, index, oldIndex, newIndex })
       return index;
     case types.MENU_ITEM_CLOSED:
     case 'redux-form/ARRAY_REMOVE':
+    case deps.types.SITE_UNSELECTED:
       return false;
     case types.MENU_ITEM_SORT_ENDED:
       if (oldIndex === state) return newIndex;
@@ -45,6 +46,8 @@ export const categoriesStatus = (state = 'idle', action) => {
       return 'succeed';
     case types.CATEGORIES_LIST_FAILED:
       return 'error';
+    case deps.types.SITE_UNSELECTED:
+      return 'idle';
     default:
       return state;
   }
@@ -58,6 +61,8 @@ export const pagesStatus = (state = 'idle', action) => {
       return 'succeed';
     case types.PAGES_LIST_FAILED:
       return 'error';
+    case deps.types.SITE_UNSELECTED:
+      return 'idle';
     default:
       return state;
   }
