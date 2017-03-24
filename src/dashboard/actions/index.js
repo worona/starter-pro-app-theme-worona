@@ -12,16 +12,29 @@ export const menuItemSortEnded = ({ oldIndex, newIndex, newMenuItems }) => ({
 export const menuItemDeleted = ({ index }) => ({ type: types.MENU_ITEM_DELETED, index });
 export const menuItemAdded = () => ({ type: types.MENU_ITEM_ADDED });
 
-export const categoriesListRequested = () => ({ type: types.CATEGORIES_LIST_REQUESTED });
-export const categoriesListSucceed = ({ categories }) => ({
+export const categoriesListRequested = ({ siteId }) => ({
+  type: types.CATEGORIES_LIST_REQUESTED,
+  siteId,
+});
+export const categoriesListSucceed = ({ categories, siteId }) => ({
   type: types.CATEGORIES_LIST_SUCCEED,
   categories,
+  siteId,
 });
-export const categoriesListFailed = ({ error }) => ({ type: types.CATEGORIES_LIST_FAILED, error });
+export const categoriesListFailed = ({ error, siteId }) => ({
+  type: types.CATEGORIES_LIST_FAILED,
+  error,
+  siteId,
+});
 
-export const pagesListRequested = () => ({ type: types.PAGES_LIST_REQUESTED });
-export const pagesListSucceed = ({ pages }) => ({
+export const pagesListRequested = ({ siteId }) => ({ type: types.PAGES_LIST_REQUESTED, siteId });
+export const pagesListSucceed = ({ pages, siteId }) => ({
   type: types.PAGES_LIST_SUCCEED,
   pages,
+  siteId,
 });
-export const pagesListFailed = ({ error }) => ({ type: types.PAGES_LIST_FAILED, error });
+export const pagesListFailed = ({ error, siteId }) => ({
+  type: types.PAGES_LIST_FAILED,
+  error,
+  siteId,
+});

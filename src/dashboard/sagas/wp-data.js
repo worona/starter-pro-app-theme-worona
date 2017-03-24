@@ -6,32 +6,32 @@ import * as types from '../types';
 import * as deps from '../deps';
 
 export const getCategories = connection =>
-  function* getCategoriesSaga() {
+  function* getCategoriesSaga({ siteId }) {
     try {
       const categories = yield connection.categories().perPage(100);
-      yield put(actions.categoriesListSucceed({ categories }));
+      yield put(actions.categoriesListSucceed({ categories, siteId }));
     } catch (error) {
-      yield put(actions.categoriesListFailed({ error }));
+      yield put(actions.categoriesListFailed({ error, siteId }));
     }
   };
 
 export const getPages = connection =>
-  function* getCategoriesSaga() {
+  function* getCategoriesSaga({ siteId }) {
     try {
       const pages = yield connection.pages().perPage(100);
-      yield put(actions.pagesListSucceed({ pages }));
+      yield put(actions.pagesListSucceed({ pages, siteId }));
     } catch (error) {
-      yield put(actions.pagesListFailed({ error }));
+      yield put(actions.pagesListFailed({ error, siteId }));
     }
   };
 
 export default function* wpDataSagas() {
-  const { url } = yield select(deps.selectors.getSelectedSite);
+  const { url, id } = yield select(deps.selectors.getSelectedSite);
   const connection = new Wpapi({ endpoint: `https://cors.worona.io/${url}?rest_route=` });
   yield [
     takeEvery(types.CATEGORIES_LIST_REQUESTED, getCategories(connection)),
     takeEvery(types.PAGES_LIST_REQUESTED, getPages(connection)),
-    put(actions.categoriesListRequested()),
-    put(actions.pagesListRequested()),
+    put(actions.categoriesListRequested({ siteId: id })),
+    put(actions.pagesListRequested({ siteId: id })),
   ];
 }

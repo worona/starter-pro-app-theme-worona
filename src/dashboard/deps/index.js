@@ -26,4 +26,5 @@ export const selectorCreators = {
 export const types = {
   get DEFAULT_SETTINGS_NEEDED() { return dep('settings', 'types', 'DEFAULT_SETTINGS_NEEDED'); },
   get SITE_SELECTED() { return dep('router', 'types', 'SITE_SELECTED'); },
+  get SITE_UNSELECTED() { return dep('router', 'types', 'SITE_UNSELECTED'); },
 };
