@@ -63,34 +63,32 @@ StarterProThemeForm.propTypes = {
   siteId: React.PropTypes.string,
   pristine: React.PropTypes.bool,
   initialValues: React.PropTypes.shape({
-    chosenColor: React.PropTypes.string,
+    color: React.PropTypes.string,
     displayFeaturedImage: React.PropTypes.bool,
+    displayCategories: React.PropTypes.bool,
+    menu: React.PropTypes.arraOf(React.PropTypes.object),
+    frontPage: React.PropTypes.shape({}),
   }),
 };
 
 const mapStateToProps = state => {
   const themeSettings = selectors.getThemeSettings(state);
-  // const categories = selectors.getCategoriesList(state);
-  // const pages = selectors.getPagesList(state);
   return {
     initialValues: {
       color: themeSettings.color,
       displayFeaturedImage: themeSettings.displayFeaturedImage,
+      displayCategories: themeSettings.displayCategories,
       menu: themeSettings.menu,
       frontPage: themeSettings.frontPage,
     },
     waiting: deps.selectors.getSavingSettings(state) === 'starter-pro-app-theme-worona',
     siteId: deps.selectors.getSelectedSiteId(state),
-    chosenColor: state.theme.reduxForm.StarterProThemeForm &&
-      state.theme.reduxForm.StarterProThemeForm.values &&
-      state.theme.reduxForm.StarterProThemeForm.values.chosenColor,
   };
 };
 
 export default flow(
   reduxForm({
     form: 'StarterProThemeForm',
-    fields: ['chosenColor', 'displayFeaturedImage'],
     getFormState: state => state.theme.reduxForm,
     enableReinitialize: true,
   }),
