@@ -35,6 +35,12 @@ class StarterProThemeForm extends React.Component {
           label="Display featured image?"
           type="checkbox"
         />
+        <Field
+          name="displayCategories"
+          component={deps.elements.Switch}
+          label="Display categories?"
+          type="checkbox"
+        />
         <FrontPage label="Front Page" />
         <FieldArray name="menu" component={Menu} label="Menu" />
         <deps.elements.Button
