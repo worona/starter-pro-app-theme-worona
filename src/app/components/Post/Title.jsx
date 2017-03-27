@@ -15,7 +15,8 @@ const Title = ({ post, categories, users, color, displayCategories, t }) => (
         <span>
           {t('By')}{' '}<span style={{ fontWeight: 600 }}>{users[post.author].name}</span>
         </span>}
-      {displayCategories && post.categories.map(category => (
+      {' '}
+      {displayCategories && post.categories && post.categories.map(category => (
           <span key={category}>
             <Link
               style={{ color: libs.darkenColor(color) }}
