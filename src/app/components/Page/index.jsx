@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as deps from '../../deps';
 import Header from '../Header';
 import Title from './Title';
-import ContentHtml from './ContentHtml';
+import ContentHtml from '../../elements/ContentHtml';
 
 const Page = ({ post, color, isReady }) => (
   <div>
