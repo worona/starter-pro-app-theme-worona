@@ -8,5 +8,12 @@ const Home = () => (
     <PostList />
   </div>
 );
+Home.propTypes = {
+  frontPage: React.PropTypes.shape({
+    type: React.PropTypes.string,
+    category: React.PropTypes.number,
+    page: React.PropTypes.number,
+  }),
+};
 
 export default Home;
