@@ -66,7 +66,7 @@ StarterProThemeForm.propTypes = {
     color: React.PropTypes.string,
     displayFeaturedImage: React.PropTypes.bool,
     displayCategories: React.PropTypes.bool,
-    menu: React.PropTypes.arraOf(React.PropTypes.object),
+    menu: React.PropTypes.arrayOf(React.PropTypes.object),
     frontPage: React.PropTypes.shape({}),
   }),
 };
