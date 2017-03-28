@@ -1,4 +1,3 @@
-import { takeEvery } from 'redux-saga';
 import { fork, call, select } from 'redux-saga/effects';
 import * as deps from '../deps';
 
@@ -19,6 +18,5 @@ function* redirectHome() {
 export default function* starterProSagas() {
   yield [
     fork(redirectHome),
-    takeEvery(deps.types.ROUTER_DID_CHANGE, redirectHome),
   ];
 }
