@@ -1,13 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Header from '../Header';
 import PostList from './PostList';
-import * as deps from '../../deps';
 
-const Home = ({ frontPage: { type, category, page } }) => (
+const Home = () => (
   <div>
     <Header />
-    {(type === 'blog_home' || type === 'category') && <PostList />}
+    <PostList />
   </div>
 );
 Home.propTypes = {
@@ -18,8 +16,4 @@ Home.propTypes = {
   }),
 };
 
-const map = state => ({
-  frontPage: deps.selectorCreators.getSetting('theme', 'frontPage')(state),
-})
-
-export default connect(map)(Home);
+export default Home;
