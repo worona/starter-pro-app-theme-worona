@@ -7,7 +7,7 @@ import { flow } from 'lodash/fp';
 import * as libs from '../../libs';
 import * as deps from '../../deps';
 
-const Title = ({ post, categories, users, chosenColor, displayCategories, t }) => (
+const Title = ({ post, categories, users, color, displayCategories, t }) => (
   <div className="content is-medium">
     <h1><div dangerouslySetInnerHTML={{ __html: post.title.rendered }} /></h1>
     <h6>
@@ -15,10 +15,11 @@ const Title = ({ post, categories, users, chosenColor, displayCategories, t }) =
         <span>
           {t('By')}{' '}<span style={{ fontWeight: 600 }}>{users[post.author].name}</span>
         </span>}
-      {displayCategories && post.categories.map(category => (
+      {' '}
+      {displayCategories && post.categories && post.categories.map(category => (
           <span key={category}>
             <Link
-              style={{ color: libs.darkenColor(chosenColor) }}
+              style={{ color: libs.darkenColor(color) }}
               to={`?cat=${categories[category].id}`}
             >
               #{categories[category].name}
@@ -34,7 +35,7 @@ Title.propTypes = {
   post: React.PropTypes.shape({}),
   categories: React.PropTypes.shape({}),
   users: React.PropTypes.shape({}),
-  chosenColor: React.PropTypes.string,
+  color: React.PropTypes.string,
   displayCategories: React.PropTypes.bool,
   t: React.PropTypes.func.isRequired,
 };
@@ -42,7 +43,7 @@ Title.propTypes = {
 const mapStateToTitleProps = state => ({
   users: deps.selectors.getUsersEntities(state),
   categories: deps.selectors.getCategoriesEntities(state),
-  chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
+  color: deps.selectorCreators.getSetting('theme', 'color')(state),
   displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
 });
 

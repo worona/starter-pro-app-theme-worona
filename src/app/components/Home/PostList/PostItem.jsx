@@ -61,7 +61,7 @@ CardImage.propTypes = {
 };
 
 let CardContent = (
-  { title, date, author, categories, chosenColor, postId, displayCategories, t },
+  { title, date, author, categories, color, postId, displayCategories, t },
 ) => (
   <div className="card-content">
     <div className="media">
@@ -78,7 +78,7 @@ let CardContent = (
           <span className="subtitle is-6 is-pulled-left is-marginless">
             {categories.map(category => (
               <span key={category.id}>
-                <Link style={{ color: libs.darkenColor(chosenColor) }} to={`?cat=${category.id}`}>
+                <Link style={{ color: libs.darkenColor(color) }} to={`?cat=${category.id}`}>
                   #{category.name}
                 </Link>
                 {' '}
@@ -98,14 +98,14 @@ CardContent.propTypes = {
   date: React.PropTypes.string,
   author: React.PropTypes.shape({}),
   categories: React.PropTypes.arrayOf(React.PropTypes.object),
-  chosenColor: React.PropTypes.string,
+  color: React.PropTypes.string,
   postId: React.PropTypes.number,
   displayCategories: React.PropTypes.bool,
   t: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-  chosenColor: deps.selectorCreators.getSetting('theme', 'chosenColor')(state),
+  color: deps.selectorCreators.getSetting('theme', 'color')(state),
   displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
 });
 

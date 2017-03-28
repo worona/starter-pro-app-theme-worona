@@ -73,6 +73,9 @@ export const selectors = {
   get getHistoryLength() {
     return dep('router', 'selectors', 'getHistoryLength');
   },
+  get getContentType() {
+    return dep('router', 'selectors', 'getContentType');
+  },
 };
 
 export const actions = {
