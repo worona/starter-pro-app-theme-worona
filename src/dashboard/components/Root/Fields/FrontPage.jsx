@@ -4,10 +4,11 @@ import { formValueSelector } from 'redux-form';
 import * as selectors from '../../../selectors';
 import Type from './Type';
 import { CategorySelector, PagesSelector } from './Selectors';
+import styles from '../style.css';
 
 const FrontPage = ({ label, type, categories, pages }) => (
-  <div>
-    <span className="label">{label}</span>
+  <div className={styles.section}>
+    <span className={styles.sectionTitle}>{label}</span>
     <Type name="frontPage.type" options={['Latest posts', 'Category', 'Page']} pages={pages} />
     {type === 'category' &&
       <CategorySelector name="frontPage.category" label="Category" categories={categories} />

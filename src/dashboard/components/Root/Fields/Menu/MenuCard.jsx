@@ -48,12 +48,16 @@ const MenuCard = sortableElement(({
     </header>
     {isOpen
       ? <div className="card-content">
-          <Field name={`${member}.label`} component={RenderField} type="text" label="Label" />
-          <Type
-            name={`${member}.type`}
-            options={['Latest posts', 'Category', 'Page', 'External Link']}
-            pages={pages}
-          />
+          <div className="control">
+            <Field name={`${member}.label`} component={RenderField} type="text" label="Label" />
+          </div>
+          <div className="control">
+            <Type
+              name={`${member}.type`}
+              options={['Latest posts', 'Category', 'Page', 'External Link']}
+              pages={pages}
+            />
+          </div>
           {type === 'category' &&
             <CategorySelector name={`${member}.category`} label="Category" categories={categories} />
           }

@@ -5,6 +5,7 @@ import MenuCard from './MenuCard';
 import * as actions from '../../../../actions';
 import * as selectors from '../../../../selectors';
 import * as deps from '../../../../deps';
+import styles from '../../style.css';
 
 const SortableList = sortableContainer(({ fields }) => (
   <span>
@@ -65,8 +66,8 @@ const mapStateToProps = state => ({
 const SortableComponent = connect(mapStateToProps, mapDispatchToProps)(SortableComponentClass);
 
 const Menu = ({ label, fields }) => (
-  <div>
-    <span className="label">{label}</span>
+  <div className={styles.section}>
+    <span className={styles.sectionTitle}>{label}</span>
     <SortableComponent fields={fields} />
     <br />
     <deps.elements.Button

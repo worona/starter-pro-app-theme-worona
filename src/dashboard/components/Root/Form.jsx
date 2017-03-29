@@ -8,6 +8,7 @@ import * as selectors from '../../selectors';
 import ColorPicker from './Fields/ColorPicker';
 import FrontPage from './Fields/FrontPage';
 import Menu from './Fields/Menu';
+import styles from './style.css';
 
 class StarterProThemeForm extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class StarterProThemeForm extends React.Component {
     const { pristine, waiting, handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.submitSettings)}>
+        <span className={styles.sectionTitle}>Style</span>
         <Field name="color" component={ColorPicker} label="Theme Color" />
         <Field
           name="displayFeaturedImage"
@@ -43,15 +45,17 @@ class StarterProThemeForm extends React.Component {
         />
         <FrontPage label="Front Page" />
         <FieldArray name="menu" component={Menu} label="Menu" />
-        <deps.elements.Button
-          color="primary"
-          size="large"
-          type="submit"
-          disabled={pristine}
-          loading={waiting}
-        >
-          Save
-        </deps.elements.Button>
+        <span className={styles.section}>
+          <deps.elements.Button
+            color="primary"
+            size="large"
+            type="submit"
+            disabled={pristine}
+            loading={waiting}
+          >
+            Save
+          </deps.elements.Button>
+        </span>
       </form>
     );
   }
