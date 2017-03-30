@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
-import { isIos } from 'worona-deps';
 import { connect } from 'react-redux';
 import { VelocityTransitionGroup } from 'velocity-react';
 import { toggleMobileMenu, closeMobileMenu } from '../../actions';
@@ -62,7 +61,6 @@ const mapStateToProps = state => ({
   color: deps.selectorCreators.getSetting('theme', 'color')(state),
   items: deps.selectorCreators.getSetting('theme', 'menu')(state),
   active: state.theme.showingMobileMenu,
-  ios: isIos,
 });
 
 const mapDispatchToProps = dispatch => ({
