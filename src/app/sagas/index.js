@@ -18,8 +18,11 @@ function* redirectHome() {
 }
 
 function hideIosStatusBar() {
+  console.log(isIos);
+  console.log(StatusBar);
   if (isIos && StatusBar) {
     StatusBar.hide();
+    console.log('hiden!');
   }
 }
 
