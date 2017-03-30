@@ -28,6 +28,10 @@ class CaptureLinks extends React.Component {
     const linkUrl = urllite(el.href);
     const siteUrl = urllite(this.props.siteUrl);
 
+    if (linkUrl.protocol === 'file:') {
+      return;
+    }
+
     // Remove blur.
     el.blur();
 
