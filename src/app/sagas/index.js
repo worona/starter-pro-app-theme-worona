@@ -1,4 +1,6 @@
+/* eslint-disable no-undef */
 import { fork, call, select } from 'redux-saga/effects';
+import { isIos } from 'worona-deps';
 import * as deps from '../deps';
 
 function* redirectHome() {
@@ -15,8 +17,15 @@ function* redirectHome() {
   }
 }
 
+function hideIosStatusBar() {
+  if (isIos && StatusBar) {
+    StatusBar.hide();
+  }
+}
+
 export default function* starterProSagas() {
   yield [
     fork(redirectHome),
+    fork(hideIosStatusBar),
   ];
 }
