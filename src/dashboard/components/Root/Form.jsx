@@ -5,9 +5,11 @@ import { reduxForm, Field, FieldArray } from 'redux-form';
 import { connect } from 'react-redux';
 import * as deps from '../../deps';
 import * as selectors from '../../selectors';
+import validate from './validate';
 import ColorPicker from './Fields/ColorPicker';
 import FrontPage from './Fields/FrontPage';
 import Menu from './Fields/Menu';
+import styles from './style.css';
 
 class StarterProThemeForm extends React.Component {
   constructor(props) {
@@ -25,9 +27,10 @@ class StarterProThemeForm extends React.Component {
   }
 
   render() {
-    const { pristine, waiting, handleSubmit } = this.props;
+    const { pristine, waiting, handleSubmit, invalid } = this.props;
     return (
       <form onSubmit={handleSubmit(this.submitSettings)}>
+        <span className={styles.sectionTitle}>Style</span>
         <Field name="color" component={ColorPicker} label="Theme Color" />
         <Field
           name="displayFeaturedImage"
@@ -43,15 +46,17 @@ class StarterProThemeForm extends React.Component {
         />
         <FrontPage label="Front Page" />
         <FieldArray name="menu" component={Menu} label="Menu" />
-        <deps.elements.Button
-          color="primary"
-          size="large"
-          type="submit"
-          disabled={pristine}
-          loading={waiting}
-        >
-          Save
-        </deps.elements.Button>
+        <span className={styles.section}>
+          <deps.elements.Button
+            color="primary"
+            size="large"
+            type="submit"
+          disabled={waiting || pristine || invalid}
+            loading={waiting}
+          >
+            Save
+          </deps.elements.Button>
+        </span>
       </form>
     );
   }
@@ -62,6 +67,7 @@ StarterProThemeForm.propTypes = {
   waiting: React.PropTypes.bool,
   siteId: React.PropTypes.string,
   pristine: React.PropTypes.bool,
+  invalid: React.PropTypes.bool,
   initialValues: React.PropTypes.shape({
     color: React.PropTypes.string,
     displayFeaturedImage: React.PropTypes.bool,
@@ -91,6 +97,7 @@ export default flow(
     form: 'StarterProThemeForm',
     getFormState: state => state.theme.reduxForm,
     enableReinitialize: true,
+    validate,
   }),
   connect(mapStateToProps),
 )(StarterProThemeForm);

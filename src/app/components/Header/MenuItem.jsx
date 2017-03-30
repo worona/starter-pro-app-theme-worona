@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import CaptureLinks from '../../elements/CaptureLinks';
 import * as libs from '../../libs';
 
 const MenuItem = ({ label, type, url, page, category, color }) => {
@@ -7,25 +8,27 @@ const MenuItem = ({ label, type, url, page, category, color }) => {
   if (type === 'page') link = `?page_id=${page}`;
   else if (type === 'category') link = `?cat=${category}`;
   return (
-    <span className="nav-item">
-      {type === 'link' ?
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: libs.blackOrWhite(color) }}
-        >
-          {label}
-        </a> :
-        <Link
-          activeClassName="is-active"
-          to={link}
-          style={{ color: libs.blackOrWhite(color) }}
-        >
-          {label}
-        </Link>
-      }
-    </span>
+    <CaptureLinks>
+      <span className="nav-item">
+        {type === 'link' ?
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: libs.blackOrWhite(color) }}
+          >
+            {label}
+          </a> :
+          <Link
+            activeClassName="is-active"
+            to={link}
+            style={{ color: libs.blackOrWhite(color) }}
+          >
+            {label}
+          </Link>
+        }
+      </span>
+    </CaptureLinks>
   );
 };
 MenuItem.propTypes = {

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import cheerio from 'cheerio';
-import CaptureLinks from './CaptureLinks';
+import CaptureLinks from '../CaptureLinks';
 import * as libs from '../../libs';
 
 const ContentHtml = ({ html, linksColor }) => {

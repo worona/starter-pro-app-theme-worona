@@ -31,6 +31,8 @@ class CaptureLinks extends React.Component {
     // Remove blur.
     el.blur();
 
+    debugger;
+
     if (!isCordova) {
       // If we are not inside Cordova, do nothing in these cases:
 

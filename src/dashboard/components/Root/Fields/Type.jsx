@@ -11,15 +11,17 @@ const parsing = {
 };
 
 const Type = ({ name, pages, options }) => (
-  <Field
-    name={name}
-    label="Type"
-    component={deps.elements.Select}
-    size="small"
-    options={options.filter(item => item !== 'Page' || pages.length > 0)}
-    parse={key => findKey(parsing, item => item === key)}
-    format={key => parsing[key]}
-  />
+  <div className="control">
+    <Field
+      name={name}
+      label="Type"
+      component={deps.elements.Select}
+      size="small"
+      options={options.filter(item => item !== 'Page' || pages.length > 0)}
+      parse={key => findKey(parsing, item => item === key)}
+      format={key => parsing[key]}
+    />
+  </div>
 );
 Type.propTypes = {
   name: React.PropTypes.string.isRequired,
