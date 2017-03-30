@@ -5,6 +5,7 @@ import { reduxForm, Field, FieldArray } from 'redux-form';
 import { connect } from 'react-redux';
 import * as deps from '../../deps';
 import * as selectors from '../../selectors';
+import validate from './validate';
 import ColorPicker from './Fields/ColorPicker';
 import FrontPage from './Fields/FrontPage';
 import Menu from './Fields/Menu';
@@ -26,7 +27,7 @@ class StarterProThemeForm extends React.Component {
   }
 
   render() {
-    const { pristine, waiting, handleSubmit } = this.props;
+    const { pristine, waiting, handleSubmit, invalid } = this.props;
     return (
       <form onSubmit={handleSubmit(this.submitSettings)}>
         <span className={styles.sectionTitle}>Style</span>
@@ -50,7 +51,7 @@ class StarterProThemeForm extends React.Component {
             color="primary"
             size="large"
             type="submit"
-            disabled={pristine}
+          disabled={waiting || pristine || invalid}
             loading={waiting}
           >
             Save
@@ -66,6 +67,7 @@ StarterProThemeForm.propTypes = {
   waiting: React.PropTypes.bool,
   siteId: React.PropTypes.string,
   pristine: React.PropTypes.bool,
+  invalid: React.PropTypes.bool,
   initialValues: React.PropTypes.shape({
     color: React.PropTypes.string,
     displayFeaturedImage: React.PropTypes.bool,
@@ -95,6 +97,7 @@ export default flow(
     form: 'StarterProThemeForm',
     getFormState: state => state.theme.reduxForm,
     enableReinitialize: true,
+    validate,
   }),
   connect(mapStateToProps),
 )(StarterProThemeForm);
