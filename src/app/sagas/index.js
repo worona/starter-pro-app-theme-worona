@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { fork, call, select } from 'redux-saga/effects';
-import worona from 'worona-deps';
+import { isIos } from 'worona-deps';
 import * as deps from '../deps';
 
 function* redirectHome() {
@@ -18,10 +18,8 @@ function* redirectHome() {
 }
 
 function hideIosStatusBar() {
-  console.log(worona);
-  if (worona.isIos && StatusBar) {
+  if (isIos && StatusBar) {
     StatusBar.hide();
-    console.log('hiden!');
   }
 }
 
