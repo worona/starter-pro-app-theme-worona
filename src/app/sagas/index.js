@@ -44,6 +44,5 @@ export default function* starterProSagas() {
   yield [
     fork(colorStatusBarWatcher),
     fork(redirectHome),
-    fork(hideIosStatusBar),
   ];
 }
