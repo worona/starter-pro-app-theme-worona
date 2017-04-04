@@ -2,6 +2,7 @@
 import { takeEvery } from 'redux-saga';
 import { fork, call, select } from 'redux-saga/effects';
 import { isIos } from 'worona-deps';
+import { blackOrWhite } from '../libs';
 import * as deps from '../deps';
 
 function* redirectHome() {
