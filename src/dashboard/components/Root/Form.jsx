@@ -45,6 +45,12 @@ class StarterProThemeForm extends React.Component {
           label="Display categories?"
           type="checkbox"
         />
+        <Field
+          name="rtl"
+          component={deps.elements.Switch}
+          label="Right-to-left text direction?"
+          type="checkbox"
+        />
         <Language />
         <FrontPage label="Front Page" />
         <FieldArray name="menu" component={Menu} label="Menu" />
@@ -89,6 +95,7 @@ const mapStateToProps = state => {
       menu: themeSettings.menu,
       frontPage: themeSettings.frontPage,
       language: themeSettings.language,
+      rtl: themeSettings.rtl,
     },
     waiting: deps.selectors.getSavingSettings(state) === 'starter-pro-app-theme-worona',
     siteId: deps.selectors.getSelectedSiteId(state),
