@@ -1,6 +1,6 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, no-constant-condition */
 import { takeEvery } from 'redux-saga';
-import { fork, call, select } from 'redux-saga/effects';
+import { fork, call, select, take } from 'redux-saga/effects';
 import { isIos } from 'worona-deps';
 import { blackOrWhite } from '../libs';
 import * as deps from '../deps';
@@ -42,9 +42,31 @@ function* colorStatusBarWatcher() {
   }
 }
 
+const changeLanguage = language => {
+  deps.i18n.changeLanguage(language);
+};
+
+function* takeSelector(selector, worker, def) {
+  let prevVal = def;
+  while (true) {
+    const val = yield select(selector);
+    if (prevVal !== val) {
+      prevVal = val;
+      yield fork(worker, val);
+    }
+    yield take('*');
+  }
+}
+
 export default function* starterProSagas() {
   yield [
     fork(colorStatusBarWatcher),
     fork(redirectHome),
+    fork(
+      takeSelector,
+      deps.selectorCreators.getSetting('theme', 'language'),
+      changeLanguage,
+      'en',
+    ),
   ];
 }
