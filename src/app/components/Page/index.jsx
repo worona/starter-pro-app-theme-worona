@@ -6,17 +6,17 @@ import Header from '../Header';
 import Title from './Title';
 import ContentHtml from '../../elements/ContentHtml';
 
-const Page = ({ post, color, isReady }) => (
+const Page = ({ post, color, isReady, rtl = false }) => (
   <div>
     <Header />
-    {
-      isReady && (
-          <section className="section" style={{ paddingTop: '1rem' }}>
-            <Title post={post} />
-            <ContentHtml html={post.content.rendered} linksColor={color} />
-          </section>
-        )
-    }
+    {isReady &&
+      <section
+        className="section"
+        style={{ paddingTop: '1rem', direction: rtl ? 'rtl' : 'inherit' }}
+      >
+        <Title post={post} />
+        <ContentHtml html={post.content.rendered} linksColor={color} />
+      </section>}
   </div>
 );
 
@@ -26,6 +26,7 @@ Page.propTypes = {
     content: React.PropTypes.shape({ rendered: React.PropTypes.string }),
   }),
   color: React.PropTypes.string,
+  rtl: React.PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
@@ -33,6 +34,7 @@ const mapStateToProps = state => ({
   isReady: deps.selectors.isCurrentSingleReady(state),
   color: deps.selectorCreators.getSetting('theme', 'color')(state),
   siteUrl: deps.selectorCreators.getSetting('generalSite', 'url')(state),
+  rtl: deps.selectorCreators.getSetting('theme', 'rtl')(state),
 });
 
 export default connect(mapStateToProps)(Page);

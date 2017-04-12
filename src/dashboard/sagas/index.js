@@ -40,6 +40,7 @@ export function* saveDefaults(action) {
         displayFeaturedImage: true,
         displayCategories: true,
         language: 'en',
+        rtl: false,
         menu: [
           {
             type: 'blog_home',
