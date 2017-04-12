@@ -9,6 +9,7 @@ import validate from './validate';
 import ColorPicker from './Fields/ColorPicker';
 import FrontPage from './Fields/FrontPage';
 import Menu from './Fields/Menu';
+import Language from './Fields/Language';
 import styles from './style.css';
 
 class StarterProThemeForm extends React.Component {
@@ -44,6 +45,7 @@ class StarterProThemeForm extends React.Component {
           label="Display categories?"
           type="checkbox"
         />
+        <Language />
         <FrontPage label="Front Page" />
         <FieldArray name="menu" component={Menu} label="Menu" />
         <span className={styles.section}>
@@ -51,7 +53,7 @@ class StarterProThemeForm extends React.Component {
             color="primary"
             size="large"
             type="submit"
-          disabled={waiting || pristine || invalid}
+            disabled={waiting || pristine || invalid}
             loading={waiting}
           >
             Save
@@ -86,6 +88,7 @@ const mapStateToProps = state => {
       displayCategories: themeSettings.displayCategories,
       menu: themeSettings.menu,
       frontPage: themeSettings.frontPage,
+      language: themeSettings.language,
     },
     waiting: deps.selectors.getSavingSettings(state) === 'starter-pro-app-theme-worona',
     siteId: deps.selectors.getSelectedSiteId(state),

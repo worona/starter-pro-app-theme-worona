@@ -39,6 +39,7 @@ export function* saveDefaults(action) {
         color: '#00AEEA',
         displayFeaturedImage: true,
         displayCategories: true,
+        language: 'en',
         menu: [
           {
             type: 'blog_home',
