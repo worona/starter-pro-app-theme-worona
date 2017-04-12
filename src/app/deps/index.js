@@ -104,3 +104,9 @@ export const types = {
     return dep('router', 'types', 'ROUTER_DID_CHANGE');
   },
 };
+
+export const i18n = {
+  get changeLanguage() {
+    return dep('build', 'i18n', 'changeLanguage');
+  },
+};
