@@ -13,7 +13,10 @@ import styles from './style.css';
 class CardImage extends React.Component {
   constructor(props) {
     super(props);
-    if (typeof this.props.featuredMedia !== 'undefined' && typeof this.props.featuredMedia.source_url !== 'undefined') {
+    if (
+      typeof this.props.featuredMedia !== 'undefined' &&
+      typeof this.props.featuredMedia.source_url !== 'undefined'
+    ) {
       this.state = { sourceUrl: this.props.featuredMedia.source_url };
     } else {
       this.state = { sourceUrl: 'undefined' };
@@ -23,8 +26,8 @@ class CardImage extends React.Component {
   componentWillMount() {
     if (
       typeof this.props.featuredMedia !== 'undefined' &&
-        typeof this.props.featuredMedia.media_details.sizes !== 'undefined'
-      ) {
+      typeof this.props.featuredMedia.media_details.sizes !== 'undefined'
+    ) {
       // We turn the Object into an array sorted by width.
       let responsiveImages = Object.values(this.props.featuredMedia.media_details.sizes);
       responsiveImages = responsiveImages.sort((a, b) => a.width - b.width);
@@ -40,7 +43,9 @@ class CardImage extends React.Component {
   }
 
   render() {
-    return (typeof this.props.featuredMedia !== 'undefined' && typeof this.props.featuredMedia.source_url !== 'undefined' && typeof this.state.sourceUrl !== 'undefined')
+    return typeof this.props.featuredMedia !== 'undefined' &&
+      typeof this.props.featuredMedia.source_url !== 'undefined' &&
+      typeof this.state.sourceUrl !== 'undefined'
       ? <Link to={`?p=${this.props.postId}`}>
           <div className="card-image">
             <figure className="image is-4by3">
@@ -61,33 +66,34 @@ CardImage.propTypes = {
 };
 
 let CardContent = (
-  { title, date, author, categories, color, postId, displayCategories, t },
+  { title, date, author, categories, color, postId, displayCategories, t, rtl = false },
 ) => (
   <div className="card-content">
     <div className="media">
       <div className="media-content">
-        <Link to={`?p=${postId}`}>
+        <Link to={`?p=${postId}`} className={rtl ? 'is-pulled-right' : ''}>
           <p className="title is-4" dangerouslySetInnerHTML={{ __html: title }} />
-          <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
-            {author && (
-              <span>{t('By')}{' '}<span style={{ fontWeight: 500 }}>{author.name}</span></span>
-            )}
+          <p className={cn(styles.paddingTop10, 'subtitle is-6', rtl && 'is-pulled-right')}>
+            {author &&
+              <span>{t('By')}{' '}<span style={{ fontWeight: 500 }}>{author.name}</span></span>}
           </p>
         </Link>
-        {displayCategories &&
-          <span className="subtitle is-6 is-pulled-left is-marginless">
-            {categories.map(category => (
-              <span key={category.id}>
-                <Link style={{ color: libs.darkenColor(color) }} to={`?cat=${category.id}`}>
-                  #{category.name}
-                </Link>
-                {' '}
-              </span>
-            ))}
-          </span>}
-        <span className="subtitle is-6 is-pulled-right is-marginless">
-          <small>{formatDate('{day}/{month}/{year}', new Date(date))}</small>
-        </span>
+        <div style={{ clear: 'both' }}>
+          {displayCategories &&
+            <span className={`subtitle is-6 is-pulled-${rtl ? 'right' : 'left'} is-marginless`}>
+              {categories.map(category => (
+                <span key={category.id}>
+                  <Link style={{ color: libs.darkenColor(color) }} to={`?cat=${category.id}`}>
+                    #{category.name}
+                  </Link>
+                  {' '}
+                </span>
+              ))}
+            </span>}
+          <span className={`subtitle is-6 is-pulled-${rtl ? 'left' : 'right'} is-marginless`}>
+            <small>{formatDate('{day}/{month}/{year}', new Date(date))}</small>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -102,10 +108,12 @@ CardContent.propTypes = {
   postId: React.PropTypes.number,
   displayCategories: React.PropTypes.bool,
   t: React.PropTypes.func.isRequired,
+  rtl: React.PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
   color: deps.selectorCreators.getSetting('theme', 'color')(state),
+  rtl: deps.selectorCreators.getSetting('theme', 'rtl')(state),
   displayCategories: deps.selectorCreators.getSetting('theme', 'displayCategories')(state),
 });
 
