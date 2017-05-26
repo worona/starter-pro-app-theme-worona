@@ -65,14 +65,20 @@ const mapStateToProps = state => ({
 
 const SortableComponent = connect(mapStateToProps, mapDispatchToProps)(SortableComponentClass);
 
-const Menu = ({ label, fields }) => (
+const Menu = ({ label, fields, pages, categories }) => (
   <div className={styles.section}>
     <span className={styles.sectionTitle}>{label}</span>
     <SortableComponent fields={fields} />
     <br />
     <deps.elements.Button
       onClick={() =>
-        fields.push({ type: 'Latest posts', label: 'Home', url: 'http://www.example.com' })}
+        fields.push({
+          type: 'Latest posts',
+          label: 'Home',
+          url: 'http://www.example.com',
+          page: `${pages[0].id}`,
+          category: `${categories[0].id}`,
+        })}
       outlined
       style={{ margin: '0 0.3em 1em 0' }}
     >
@@ -83,6 +89,13 @@ const Menu = ({ label, fields }) => (
 Menu.propTypes = {
   label: React.PropTypes.string.isRequired,
   fields: React.PropTypes.shape({}).isRequired,
+  pages: React.PropTypes.arrayOf(React.PropTypes.object),
+  categories: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
-export default Menu;
+const mapMenuStateToProps = state => ({
+  pages: selectors.getPagesList(state),
+  categories: selectors.getCategoriesList(state),
+});
+
+export default connect(mapMenuStateToProps)(Menu);
