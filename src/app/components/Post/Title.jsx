@@ -13,20 +13,29 @@ const Title = ({ post, categories, users, color, displayCategories, t }) => (
     <h6>
       {users[post.author] &&
         <span>
-          {t('By')}{' '}<span style={{ fontWeight: 600 }}>{users[post.author].name}</span>
+          {t('By')}{' '}
+          <span style={{ fontWeight: 600 }}>
+            <Link
+              style={{ color: libs.darkenColor(color) }}
+              to={`?author=${users[post.author].id}`}
+            >
+              {users[post.author].name}
+            </Link>
+          </span>
         </span>}
       {' '}
       {displayCategories && post.categories && post.categories.map(category => (
-          <span key={category}>
-            <Link
-              style={{ color: libs.darkenColor(color) }}
-              to={`?cat=${categories[category].id}`}
-            >
-              #{categories[category].name}
-            </Link>
-            {' '}
-          </span>
-        ))}
+        <span key={category}>
+          <Link
+            style={{ color: libs.darkenColor(color) }}
+            to={`?cat=${categories[category].id}`}
+          >
+            {'#'}
+            <span dangerouslySetInnerHTML={{ __html: categories[category].name }} />
+          </Link>
+          {' '}
+        </span>
+      ))}
     </h6>
   </div>
 );
