@@ -2,6 +2,11 @@
   padding:10px;
 }
 
+.rtl {
+  display: block;
+  text-align: right;
+}
+
 .listHeader {
   padding-top: 10px;
   padding-bottom: 2px;

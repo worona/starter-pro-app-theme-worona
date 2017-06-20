@@ -75,10 +75,10 @@ let CardContent = (
   <div className="card-content">
     <div className="media">
       <div className="media-content">
-        <Link to={`?p=${postId}`} className={rtl ? 'is-pulled-right' : ''}>
+        <Link to={`?p=${postId}`} className={rtl ? styles.rtl : ''}>
           <p className="title is-4" dangerouslySetInnerHTML={{ __html: title }} />
         </Link>
-        <p className={cn(styles.paddingTop10, 'subtitle is-6')}>
+        <p className={cn(styles.paddingTop10, rtl ? styles.rtl : '', 'subtitle is-6')}>
           {author &&
             <span>
               {t('By')}{' '}
