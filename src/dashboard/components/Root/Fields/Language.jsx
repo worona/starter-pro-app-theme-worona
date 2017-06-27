@@ -7,6 +7,7 @@ const languages = {
   en: 'English',
   es: 'Spanish',
   ar: 'Arabic',
+  de: 'German',
 };
 
 const Language = () => (
